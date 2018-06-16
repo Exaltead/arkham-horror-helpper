@@ -1,10 +1,10 @@
 package fi.exa.cthulhuhelpper
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import fi.exa.cthulhuhelpper.fragment.GameActivityFragment
 
 import kotlinx.android.synthetic.main.activity_game.*
 
@@ -14,6 +14,10 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         setSupportActionBar(toolbar)
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.token_container, GameActivityFragment())
+                .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
