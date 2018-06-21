@@ -4,6 +4,10 @@ import java.util.*
 
 class TokenConfig {
     private val random = Random()
-    val tokens = listOf("E", "+1", "0", "-1", "-2", "-3", "-4", "H", "Sq", "Sk", "T")
-            .map {  it to 0 }
+    val tokens =  CthulhuToken.values().map {  it to 0 }
+
+    fun getNewToken(): CthulhuToken{
+        // For now ignore that each token might have different distribution
+        return tokens[random.nextInt(tokens.size - 1)].first
+    }
 }
