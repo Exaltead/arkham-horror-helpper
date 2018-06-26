@@ -3,19 +3,25 @@ package fi.exa.cthulhuhelpper.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import fi.exa.cthulhuhelpper.model.Token
-import java.util.*
+import fi.exa.cthulhuhelpper.model.CthulhuToken
+import fi.exa.cthulhuhelpper.model.TokenConfig
 
 class TokenViewModel: ViewModel(){
-    private val random = Random()
-    private val currentToken = MutableLiveData<Token>()
 
-
-    fun newToken(){
-        currentToken.postValue(Token(random))
+    private val config =  MutableLiveData<TokenConfig>()
+    private val currentToken = MutableLiveData<CthulhuToken>()
+    init {
+        config.value = TokenConfig()
     }
 
-    fun getToken(): LiveData<Token> {
-        return currentToken
+    fun newToken() = currentToken.postValue(config.value?.getNewToken())
+
+    fun getToken(): LiveData<CthulhuToken> = currentToken
+
+    fun getTokenConfig(): LiveData<TokenConfig> = config
+
+    fun updateTokenConfig(token: CthulhuToken, newCount: Int){
+        config.value?.updateWith(token, newCount)
+        config.value = config.value
     }
 }
