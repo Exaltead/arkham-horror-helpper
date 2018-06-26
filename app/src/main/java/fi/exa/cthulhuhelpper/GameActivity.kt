@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import fi.exa.cthulhuhelpper.fragment.GameActivityFragment
+import fi.exa.cthulhuhelpper.fragment.TokenConfigFragment
 
 import kotlinx.android.synthetic.main.activity_game.*
 
@@ -16,7 +17,7 @@ class GameActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportFragmentManager
                 .beginTransaction()
-                .add(R.id.token_container, GameActivityFragment())
+                .replace(R.id.token_container, GameActivityFragment())
                 .commit()
     }
 
@@ -32,7 +33,17 @@ class GameActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_config -> setConfigFragment()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun setConfigFragment(): Boolean{
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.token_container, TokenConfigFragment())
+                .addToBackStack(null)
+                .commit()
+        return true
     }
 }
