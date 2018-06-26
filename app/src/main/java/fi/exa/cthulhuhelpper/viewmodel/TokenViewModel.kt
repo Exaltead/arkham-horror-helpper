@@ -8,16 +8,20 @@ import fi.exa.cthulhuhelpper.model.TokenConfig
 
 class TokenViewModel: ViewModel(){
 
-    val config =  TokenConfig()
-
+    private val config =  MutableLiveData<TokenConfig>()
     private val currentToken = MutableLiveData<CthulhuToken>()
-
-
-    fun newToken(){
-        currentToken.postValue(config.getNewToken())
+    init {
+        config.value = TokenConfig()
     }
 
-    fun getToken(): LiveData<CthulhuToken> {
-        return currentToken
+    fun newToken() = currentToken.postValue(config.value?.getNewToken())
+
+    fun getToken(): LiveData<CthulhuToken> = currentToken
+
+    fun getTokenConfig(): LiveData<TokenConfig> = config
+
+    fun updateTokenConfig(token: CthulhuToken, newCount: Int){
+        config.value?.updateWith(token, newCount)
+        config.value = config.value
     }
 }
