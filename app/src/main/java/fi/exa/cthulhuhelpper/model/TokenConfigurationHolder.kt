@@ -2,7 +2,7 @@ package fi.exa.cthulhuhelpper.model
 
 import java.util.*
 
-class TokenConfig {
+class TokenConfigurationHolder {
     private val random = Random()
     val tokens =  CthulhuToken.values().map {  it to 0 }.toMutableList()
 
