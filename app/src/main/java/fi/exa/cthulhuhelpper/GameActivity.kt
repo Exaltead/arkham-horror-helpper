@@ -1,15 +1,23 @@
 package fi.exa.cthulhuhelpper
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import fi.exa.cthulhuhelpper.fragment.GameActivityFragment
 import fi.exa.cthulhuhelpper.fragment.TokenConfigFragment
 
 import kotlinx.android.synthetic.main.activity_game.*
+import javax.inject.Inject
 
-class GameActivity : AppCompatActivity() {
+class GameActivity : AppCompatActivity(), HasSupportFragmentInjector {
+    @Inject
+    lateinit var  dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    override fun supportFragmentInjector()  = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
