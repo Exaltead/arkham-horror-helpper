@@ -5,15 +5,14 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import fi.exa.cthulhuhelpper.model.CthulhuToken
 import fi.exa.cthulhuhelpper.model.TokenConfigurationHolder
+import fi.exa.cthulhuhelpper.repository.TokenConfigurationRepository
 import javax.inject.Inject
 
-class TokenViewModel @Inject constructor(): ViewModel(){
+class TokenViewModel @Inject constructor(
+        private val tokenConfigurationRepository: TokenConfigurationRepository): ViewModel(){
 
-    private val config =  MutableLiveData<TokenConfigurationHolder>()
+    private val config: LiveData<TokenConfigurationHolder> = tokenConfigurationRepository.loadTokenConfiguration()
     private val currentToken = MutableLiveData<CthulhuToken>()
-    init {
-        config.value = TokenConfigurationHolder()
-    }
 
     fun newToken() = currentToken.postValue(config.value?.getNewToken())
 
@@ -22,7 +21,6 @@ class TokenViewModel @Inject constructor(): ViewModel(){
     fun getTokenConfig(): LiveData<TokenConfigurationHolder> = config
 
     fun updateTokenConfig(token: CthulhuToken, newCount: Int){
-        config.value?.updateWith(token, newCount)
-        config.value = config.value
+        tokenConfigurationRepository.updateTokenConfig(token, newCount)
     }
 }
