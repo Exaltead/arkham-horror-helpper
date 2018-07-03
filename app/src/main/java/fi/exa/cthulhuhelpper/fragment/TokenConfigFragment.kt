@@ -32,7 +32,7 @@ class TokenConfigFragment: Fragment(), Injectable {
         tokenViewModel = ViewModelProviders.of(this, viewModelFactory).get(TokenViewModel::class.java)
         tokenViewModel.getTokenConfig()
                 .observe(this, Observer { t -> t?.let {
-                    c -> viewAdapter.updateAdapterValues(c.tokens) } })
+                    c -> viewAdapter.updateAdapterValues(c.orderedTokenConfiguration()) } })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

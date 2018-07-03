@@ -6,15 +6,18 @@ enum class Difficulty { Easy, Standard, Hard, Expert }
 
 object TokenConfigurationBuilder {
     fun fromList(tokens: List<TokenConfiguration>): TokenConfigurationHolder {
-        return TokenConfigurationHolder(tokens.map { Pair(it.token, it.count) })
+        return TokenConfigurationHolder(tokens.map { Pair(it.token, it.count) }.toMap())
     }
 
     fun stub(): TokenConfigurationHolder {
-        return TokenConfigurationHolder(CthulhuToken.values().mapIndexed { i, t -> Pair(t, i) })
+        return TokenConfigurationHolder(CthulhuToken.values()
+                .mapIndexed { i, t -> Pair(t, i) }.toMap())
     }
 
-    fun upwrap(tokenConfigurationHolder: TokenConfigurationHolder): List<TokenConfiguration> {
-        return tokenConfigurationHolder.tokens.map { it.toTokenConfiguration() }
+    fun unwrap(tokenConfigurationHolder: TokenConfigurationHolder): List<TokenConfiguration> {
+        return tokenConfigurationHolder
+                .orderedTokenConfiguration()
+                .map { TokenConfiguration(it.first, it.second) }
     }
 
     fun fromDificulty(difficulty: Difficulty): TokenConfigurationHolder{
@@ -24,45 +27,40 @@ object TokenConfigurationBuilder {
             Difficulty.Hard -> hardDifficulty()
             Difficulty.Expert -> expertDifficulty()
         }
-        return TokenConfigurationHolder(tokens.addSpecials())
+        return TokenConfigurationHolder(tokens.plus(specials()))
     }
 }
 
-private fun Pair<CthulhuToken, Int>.toTokenConfiguration() : TokenConfiguration{
-    val tokenConfiguration = TokenConfiguration()
-    tokenConfiguration.token = this.first
-    tokenConfiguration.count = this.second
-    return tokenConfiguration
-}
 
-private fun easyDifficulty(): List<Pair<CthulhuToken, Int>>{
+private fun easyDifficulty(): Map<CthulhuToken, Int>{
     return listOf(Pair(CthulhuToken.PLUS_1, 2), Pair(CthulhuToken.ZERO, 3),
             Pair(CthulhuToken.MINUS_1, 3), Pair(CthulhuToken.MINUS_2, 2))
+            .toMap()
 }
 
-private fun standardDifficulty():List<Pair<CthulhuToken, Int>>{
+private fun standardDifficulty():Map<CthulhuToken, Int>{
     return listOf(Pair(CthulhuToken.PLUS_1, 1), Pair(CthulhuToken.ZERO, 2),
             Pair(CthulhuToken.MINUS_1, 3), Pair(CthulhuToken.MINUS_2, 2),
             Pair(CthulhuToken.MINUS_3, 1), Pair(CthulhuToken.MINUS_4, 1))
+            .toMap()
 }
 
-private fun hardDifficulty():List<Pair<CthulhuToken, Int>>{
+private fun hardDifficulty():Map<CthulhuToken, Int>{
     return listOf( Pair(CthulhuToken.ZERO, 3),
             Pair(CthulhuToken.MINUS_1, 2), Pair(CthulhuToken.MINUS_2, 2),
             Pair(CthulhuToken.MINUS_3, 2), Pair(CthulhuToken.MINUS_4, 1),
-            Pair(CthulhuToken.MINUS_5, 1))
+            Pair(CthulhuToken.MINUS_5, 1)).toMap()
 }
 
-private fun expertDifficulty():List<Pair<CthulhuToken, Int>>{
+private fun expertDifficulty():Map<CthulhuToken, Int>{
     return listOf( Pair(CthulhuToken.ZERO, 1),
             Pair(CthulhuToken.MINUS_1, 2), Pair(CthulhuToken.MINUS_2, 2),
             Pair(CthulhuToken.MINUS_3, 2), Pair(CthulhuToken.MINUS_4, 2),
             Pair(CthulhuToken.MINUS_5, 1), Pair(CthulhuToken.MINUS_6, 1),
-            Pair(CthulhuToken.MINUS_8, 1))
+            Pair(CthulhuToken.MINUS_8, 1)).toMap()
  }
 
-private fun List<Pair<CthulhuToken, Int>>.addSpecials(): List<Pair<CthulhuToken, Int>>{
-    val specials = listOf(Pair(CthulhuToken.SKULL, 2), Pair(CthulhuToken.HOOD, 1),
-            Pair(CthulhuToken.ELDER_SIGN, 1), Pair(CthulhuToken.FAILURE, 1))
-    return listOf(this, specials).flatten()
+private fun specials(): Map<CthulhuToken, Int>{
+    return mapOf(CthulhuToken.SKULL to 2, CthulhuToken.HOOD to 1,
+            CthulhuToken.ELDER_SIGN to 1, CthulhuToken.FAILURE to 1)
 }

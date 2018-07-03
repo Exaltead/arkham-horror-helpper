@@ -21,7 +21,7 @@ class TokenConfigurationRepository @Inject constructor(
 
     fun insertTokenConfigs(tokens: TokenConfigurationHolder){
         doAsync {
-            tokenDao.insertConfiguration(TokenConfigurationBuilder.upwrap(tokens))
+            tokenDao.insertConfiguration(TokenConfigurationBuilder.unwrap(tokens))
         }
     }
 
