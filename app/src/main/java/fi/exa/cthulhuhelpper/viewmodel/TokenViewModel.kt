@@ -5,8 +5,9 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import fi.exa.cthulhuhelpper.model.CthulhuToken
 import fi.exa.cthulhuhelpper.model.TokenConfigurationHolder
+import javax.inject.Inject
 
-class TokenViewModel: ViewModel(){
+class TokenViewModel @Inject constructor(): ViewModel(){
 
     private val config =  MutableLiveData<TokenConfigurationHolder>()
     private val currentToken = MutableLiveData<CthulhuToken>()

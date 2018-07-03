@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import fi.exa.cthulhuhelpper.fragment.GameActivityFragment

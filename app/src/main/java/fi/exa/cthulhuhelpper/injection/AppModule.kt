@@ -7,7 +7,7 @@ import dagger.Provides
 import fi.exa.cthulhuhelpper.persistence.AppDatabase
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [ViewModelModule::class])
 class AppModule {
 
     @Singleton
