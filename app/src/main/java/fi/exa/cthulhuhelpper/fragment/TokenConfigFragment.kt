@@ -36,8 +36,11 @@ class TokenConfigFragment: Fragment(), Injectable {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         viewManager = LinearLayoutManager(context)
-        viewAdapter = ConfigAdapter { t, v -> tokenViewModel.updateTokenConfig(t, v)}
+        viewAdapter = ConfigAdapter({ t, v -> tokenViewModel.updateTokenConfig(t, v)},
+                {difficulty -> tokenViewModel.setDifficulty(difficulty) })
+
         val view = inflater.inflate(R.layout.fragment_config, container, false)
         view.config_list.apply {
             setHasFixedSize(true)

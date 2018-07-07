@@ -5,6 +5,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import fi.exa.cthulhuhelpper.model.CthulhuToken
+import fi.exa.cthulhuhelpper.model.Difficulty
+import fi.exa.cthulhuhelpper.model.TokenConfigurationBuilder
 import fi.exa.cthulhuhelpper.model.TokenConfigurationHolder
 import fi.exa.cthulhuhelpper.repository.TokenConfigurationRepository
 import javax.inject.Inject
@@ -30,5 +32,10 @@ class TokenViewModel @Inject constructor(
 
     fun updateTokenConfig(token: CthulhuToken, newCount: Int){
         tokenConfigurationRepository.updateTokenConfig(token, newCount)
+    }
+
+    fun setDifficulty(difficulty: Difficulty){
+        val holder = TokenConfigurationBuilder.fromDificulty(difficulty)
+        tokenConfigurationRepository.insertTokenConfigs(holder)
     }
 }
