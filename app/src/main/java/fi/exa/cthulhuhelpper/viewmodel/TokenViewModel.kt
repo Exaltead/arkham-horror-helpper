@@ -30,7 +30,9 @@ class TokenViewModel @Inject constructor(
     fun getTokenConfig(): LiveData<TokenConfigurationHolder> = config
 
     fun updateTokenConfig(token: CthulhuToken, newCount: Int){
-        tokenConfigurationRepository.updateTokenConfig(token, newCount)
+        if(newCount in 0..5){
+            tokenConfigurationRepository.updateTokenConfig(token, newCount)
+        }
     }
 
     fun setDifficulty(difficulty: Difficulty){
