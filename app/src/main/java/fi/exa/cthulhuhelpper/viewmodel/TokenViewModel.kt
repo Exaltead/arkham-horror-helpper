@@ -2,7 +2,6 @@ package fi.exa.cthulhuhelpper.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import fi.exa.cthulhuhelpper.model.CthulhuToken
 import fi.exa.cthulhuhelpper.model.Difficulty
@@ -35,7 +34,7 @@ class TokenViewModel @Inject constructor(
     }
 
     fun setDifficulty(difficulty: Difficulty){
-        val holder = TokenConfigurationBuilder.fromDificulty(difficulty)
+        val holder = TokenConfigurationBuilder.fromDifficulty(difficulty)
         tokenConfigurationRepository.insertTokenConfigs(holder)
     }
 }
