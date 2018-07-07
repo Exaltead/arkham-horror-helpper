@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.Spinner
 import fi.exa.cthulhuhelpper.R
 import fi.exa.cthulhuhelpper.model.CthulhuToken
 import fi.exa.cthulhuhelpper.model.Difficulty
@@ -16,17 +16,23 @@ private const val ItemType = 1
 private const val HeaderType = 2
 
 class ConfigAdapter(private val configChanged: (CthulhuToken, Int) -> Unit,
-                    private val onDifficutySelected: (Difficulty) -> Unit):
+                    private val onDifficultySelected: (Difficulty) -> Unit):
         RecyclerView.Adapter<RecyclerView.ViewHolder>(), AdapterView.OnItemSelectedListener {
+
+
+    private lateinit var headerAdapter: DifficultyAdapter
+    private lateinit var difficultySpinner: Spinner
+    private val tokens = mutableListOf<Pair<CthulhuToken, Int>>()
+
     override fun onNothingSelected(p0: AdapterView<*>?) {}
 
     override fun onItemSelected(adapterView: AdapterView<*>, p1: View?, position: Int, id: Long) {
-        val item = adapterView.selectedItem as String
-        onDifficutySelected(Difficulty.valueOf(item))
-    }
+        if(headerAdapter.difficultySelected(position)){
+            val item = adapterView.selectedItem as String
+            onDifficultySelected(Difficulty.valueOf(item))
+        }
 
-    private lateinit var headerAdapter: ArrayAdapter<String>
-    private val tokens = mutableListOf<Pair<CthulhuToken, Int>>()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -35,7 +41,7 @@ class ConfigAdapter(private val configChanged: (CthulhuToken, Int) -> Unit,
            HeaderType -> {
                val viewHolder = HeaderViewHolder(LayoutInflater.from(parent?.context)
                    .inflate(R.layout.view_configuration_header, parent, false))
-               headerAdapter = ArrayAdapter(parent?.context, android.R.layout.simple_spinner_item)
+               headerAdapter = DifficultyAdapter(parent?.context, android.R.layout.simple_spinner_item)
                headerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                viewHolder.spinner.adapter = headerAdapter
                return viewHolder
@@ -51,9 +57,8 @@ class ConfigAdapter(private val configChanged: (CthulhuToken, Int) -> Unit,
             setHolderValues(holder, position)
         }
         else if(holder is HeaderViewHolder){
-            headerAdapter.clear()
-            headerAdapter.addAll(Difficulty.values().map { it.toString() })
             holder.spinner.onItemSelectedListener = this
+            difficultySpinner = holder.spinner
         }
     }
 
@@ -67,16 +72,22 @@ class ConfigAdapter(private val configChanged: (CthulhuToken, Int) -> Unit,
         val position = position - 1
         viewHolder.tokenCountView.text = tokens[position].second.toString()
         viewHolder.tokenLabelView.text = tokens[position].first.stringName
-        viewHolder.incrementButton.setOnClickListener { _ ->
-            configChanged(tokens[position].first, tokens[position].second + 1)}
-        viewHolder.decrementButton.setOnClickListener { _ ->
-            configChanged(tokens[position].first, tokens[position].second - 1)}
+        viewHolder.incrementButton.setOnClickListener { _ -> difficultyAdjusted(position, 1)}
+        viewHolder.decrementButton.setOnClickListener { _ -> difficultyAdjusted(position, -1)}
     }
 
     fun updateAdapterValues(newTokens: List<Pair<CthulhuToken, Int>>){
         tokens.clear()
         tokens.addAll(newTokens)
         notifyDataSetChanged()
+    }
+
+    private fun difficultyAdjusted(position: Int, by: Int){
+        val pair = tokens[position]
+        configChanged(pair.first, pair.second + by)
+        headerAdapter.setCustomDifficulty()
+        difficultySpinner.setSelection(4)
+
     }
 }
 
