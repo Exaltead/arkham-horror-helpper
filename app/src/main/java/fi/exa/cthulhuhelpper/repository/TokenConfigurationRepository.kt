@@ -16,12 +16,12 @@ class TokenConfigurationRepository @Inject constructor(
 
     fun loadTokenConfiguration(): LiveData<TokenConfigurationHolder> {
         return Transformations.map(tokenDao.getConfiguration())
-            { tokens -> ensureTokensExsiting(tokens)}
+            { tokens -> ensureTokensExisting(tokens)}
     }
 
     fun insertTokenConfigs(tokens: TokenConfigurationHolder){
         doAsync {
-            tokenDao.insertConfiguration(TokenConfigurationBuilder.upwrap(tokens))
+            tokenDao.insertConfiguration(TokenConfigurationBuilder.unwrap(tokens))
         }
     }
 
@@ -34,7 +34,7 @@ class TokenConfigurationRepository @Inject constructor(
         }
     }
 
-    private fun ensureTokensExsiting(tokens: List<TokenConfiguration>): TokenConfigurationHolder {
+    private fun ensureTokensExisting(tokens: List<TokenConfiguration>): TokenConfigurationHolder {
         if(tokens.isNotEmpty()){
             return TokenConfigurationBuilder.fromList(tokens)
         }

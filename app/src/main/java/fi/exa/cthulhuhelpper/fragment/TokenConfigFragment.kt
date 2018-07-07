@@ -13,6 +13,9 @@ import android.view.ViewGroup
 import fi.exa.cthulhuhelpper.R
 import fi.exa.cthulhuhelpper.adapter.ConfigAdapter
 import fi.exa.cthulhuhelpper.injection.Injectable
+import fi.exa.cthulhuhelpper.model.Difficulty
+import fi.exa.cthulhuhelpper.model.TokenConfigurationBuilder
+import fi.exa.cthulhuhelpper.model.TokenConfigurationHolder
 import fi.exa.cthulhuhelpper.viewmodel.TokenViewModel
 import kotlinx.android.synthetic.main.fragment_config.view.*
 import javax.inject.Inject
@@ -32,12 +35,15 @@ class TokenConfigFragment: Fragment(), Injectable {
         tokenViewModel = ViewModelProviders.of(this, viewModelFactory).get(TokenViewModel::class.java)
         tokenViewModel.getTokenConfig()
                 .observe(this, Observer { t -> t?.let {
-                    c -> viewAdapter.updateAdapterValues(c.tokens) } })
+                    c -> viewAdapter.updateAdapterValues(c.orderedTokenConfiguration(), asDifficulty(c)) } })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         viewManager = LinearLayoutManager(context)
-        viewAdapter = ConfigAdapter { t, v -> tokenViewModel.updateTokenConfig(t, v)}
+        viewAdapter = ConfigAdapter({ t, v -> tokenViewModel.updateTokenConfig(t, v)},
+                {difficulty -> tokenViewModel.setDifficulty(difficulty) })
+
         val view = inflater.inflate(R.layout.fragment_config, container, false)
         view.config_list.apply {
             setHasFixedSize(true)
@@ -45,5 +51,9 @@ class TokenConfigFragment: Fragment(), Injectable {
             adapter = viewAdapter
         }
         return view
+    }
+
+    private fun asDifficulty(tokenConfigurationHolder: TokenConfigurationHolder): Difficulty? {
+        return TokenConfigurationBuilder.deduceDifficulty(tokenConfigurationHolder)
     }
 }

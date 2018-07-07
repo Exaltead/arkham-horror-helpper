@@ -14,7 +14,6 @@ import fi.exa.cthulhuhelpper.injection.Injectable
 import fi.exa.cthulhuhelpper.model.CthulhuToken
 import fi.exa.cthulhuhelpper.viewmodel.TokenViewModel
 import kotlinx.android.synthetic.main.fragment_token.*
-import kotlinx.android.synthetic.main.fragment_token.view.*
 import javax.inject.Inject
 
 
@@ -31,13 +30,12 @@ class GameActivityFragment : Fragment(), Injectable {
                 .of(this, viewModelFactory)
                 .get(TokenViewModel::class.java)
         tokenViewModel.getToken().observe(this, Observer { token -> updateShownToken(token) })
+        token_text.setOnClickListener { _ -> tokenViewModel.newToken()}
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view =  inflater.inflate(R.layout.fragment_token, container, false)
-        view.token_text.setOnClickListener { _ -> tokenViewModel.newToken()}
-        return view
+        return inflater.inflate(R.layout.fragment_token, container, false)
     }
 
     private fun updateShownToken(token: CthulhuToken?){
