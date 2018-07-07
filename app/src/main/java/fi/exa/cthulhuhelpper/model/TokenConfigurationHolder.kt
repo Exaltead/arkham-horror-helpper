@@ -20,6 +20,10 @@ class TokenConfigurationHolder constructor(tokens: Map<CthulhuToken, Int>) {
         return tokens.map { it.toPair() }
     }
 
+    fun sameConfig(other: TokenConfigurationHolder): Boolean{
+        return tokens == other.tokens
+    }
+
 }
 
 private fun Map<CthulhuToken, Int>.expandTokenPool(): List<CthulhuToken>{

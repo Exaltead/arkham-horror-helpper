@@ -9,6 +9,7 @@ import android.widget.Spinner
 import fi.exa.cthulhuhelpper.R
 import fi.exa.cthulhuhelpper.model.CthulhuToken
 import fi.exa.cthulhuhelpper.model.Difficulty
+import fi.exa.cthulhuhelpper.model.TokenConfigurationBuilder
 import kotlinx.android.synthetic.main.crementer.view.*
 import kotlinx.android.synthetic.main.view_configuration_header.view.*
 
@@ -76,7 +77,19 @@ class ConfigAdapter(private val configChanged: (CthulhuToken, Int) -> Unit,
         viewHolder.decrementButton.setOnClickListener { _ -> difficultyAdjusted(position, -1)}
     }
 
-    fun updateAdapterValues(newTokens: List<Pair<CthulhuToken, Int>>){
+    fun updateAdapterValues(newTokens: List<Pair<CthulhuToken, Int>>, difficulty: Difficulty?){
+        if( difficulty == null ){
+            headerAdapter.setCustomDifficulty()
+            difficultySpinner.setSelection(4)
+        }
+        else {
+            when(difficulty){
+                Difficulty.Easy -> difficultySpinner.setSelection(0)
+                Difficulty.Standard -> difficultySpinner.setSelection(1)
+                Difficulty.Hard -> difficultySpinner.setSelection(2)
+                Difficulty.Expert -> difficultySpinner.setSelection(3)
+            }
+        }
         tokens.clear()
         tokens.addAll(newTokens)
         notifyDataSetChanged()

@@ -1,6 +1,7 @@
 package fi.exa.cthulhuhelpper.model
 
 import fi.exa.cthulhuhelpper.persistence.TokenConfiguration
+import java.util.*
 
 enum class Difficulty { Easy, Standard, Hard, Expert }
 
@@ -28,6 +29,15 @@ object TokenConfigurationBuilder {
             Difficulty.Expert -> expertDifficulty()
         }
         return TokenConfigurationHolder(empty().plus(tokens).plus(specials()))
+    }
+
+    fun deduceDifficulty(tokenConfigurationHolder: TokenConfigurationHolder): Difficulty?{
+        for (diff in Difficulty.values()){
+            if(tokenConfigurationHolder.sameConfig(fromDifficulty(diff))){
+                return diff
+            }
+        }
+        return null
     }
 }
 
