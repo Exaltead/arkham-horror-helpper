@@ -5,10 +5,11 @@ import java.util.*
 class TokenConfigurationHolder constructor(tokens: Map<CthulhuToken, Int>) {
     private val tokens: Map<CthulhuToken, Int>
     private val random = Random()
-    private val expandedTokenPool: List<CthulhuToken> = tokens.expandTokenPool()
+    private val expandedTokenPool: List<CthulhuToken>
 
     init {
         this.tokens = tokens.toSortedMap()
+        expandedTokenPool = tokens.expandTokenPool()
     }
 
     fun getNewToken(): CthulhuToken{
