@@ -12,8 +12,9 @@ class TokenConfigurationHolder constructor(tokens: Map<CthulhuToken, Int>) {
         expandedTokenPool = tokens.expandTokenPool()
     }
 
-    fun getNewToken(): CthulhuToken{
-        // For now ignore that each token might have different distribution
+    fun getNewToken(): CthulhuToken?{
+
+        if(expandedTokenPool.isEmpty()) return null
         return expandedTokenPool[random.nextInt(expandedTokenPool.size - 1)]
     }
 

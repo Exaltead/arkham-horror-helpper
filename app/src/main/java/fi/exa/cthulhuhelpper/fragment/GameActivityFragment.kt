@@ -29,7 +29,11 @@ class GameActivityFragment : Fragment(), Injectable {
                 .of(this, viewModelFactory)
                 .get(TokenViewModel::class.java)
         tokenViewModel.getToken().observe(this, Observer { token -> updateShownToken(token) })
-        token_text.setOnClickListener { _ -> tokenViewModel.newToken()}
+        token_text.setOnClickListener {
+            if(!tokenViewModel.newToken()){
+                DifficultyDialog().show(fragmentManager, "Difficulty")
+            }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

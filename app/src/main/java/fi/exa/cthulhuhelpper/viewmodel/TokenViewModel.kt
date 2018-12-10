@@ -21,8 +21,10 @@ class TokenViewModel @Inject constructor(
     }
     private lateinit var currentHolder: TokenConfigurationHolder
 
-    fun newToken() {
-        currentToken.value = currentHolder.getNewToken()
+    fun newToken(): Boolean {
+
+        currentToken.value = currentHolder.getNewToken() ?: return false
+        return true
     }
 
     fun getToken(): LiveData<CthulhuToken> = currentToken

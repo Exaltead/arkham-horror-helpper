@@ -2,6 +2,7 @@ package fi.exa.cthulhuhelpper.injection
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import fi.exa.cthulhuhelpper.fragment.DifficultyDialog
 import fi.exa.cthulhuhelpper.fragment.GameActivityFragment
 import fi.exa.cthulhuhelpper.fragment.TokenConfigFragment
 
@@ -14,4 +15,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeTokenConfigFragment(): TokenConfigFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeDifficultyDialogFragment(): DifficultyDialog
 }
