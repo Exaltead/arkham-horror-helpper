@@ -3,16 +3,16 @@ package fi.exa.cthulhuhelpper.injection
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import fi.exa.cthulhuhelpper.App
 
 ///Marks fragment so that injection will occur
-interface Injectable{}
+interface Injectable
 
 ///Automatically injects dependencies to activities and contained fragments
 object AppInjector {
@@ -46,7 +46,7 @@ private object ActivityLifecycleInjector: Application.ActivityLifecycleCallbacks
 }
 
 private object FragmentLifecycleInjector: FragmentManager.FragmentLifecycleCallbacks(){
-    override fun onFragmentCreated(fm: FragmentManager?, f: Fragment?, savedInstanceState: Bundle?) {
+    override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
         if(f is Injectable){
             AndroidSupportInjection.inject(f)
         }

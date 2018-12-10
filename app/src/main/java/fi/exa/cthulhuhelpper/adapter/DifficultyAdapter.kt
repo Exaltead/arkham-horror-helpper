@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.ArrayAdapter
 import fi.exa.cthulhuhelpper.model.Difficulty
 
-class DifficultyAdapter(context: Context?, resource: Int): ArrayAdapter<String>(context, resource){
+class DifficultyAdapter(context: Context, resource: Int): ArrayAdapter<String>(context, resource){
     private val dataset = Difficulty.values().map { it.name }.toMutableList()
     var hasCustom = false
 
