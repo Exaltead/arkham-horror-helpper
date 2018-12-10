@@ -1,7 +1,7 @@
 package fi.exa.cthulhuhelpper.injection
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import fi.exa.cthulhuhelpper.persistence.AppDatabase

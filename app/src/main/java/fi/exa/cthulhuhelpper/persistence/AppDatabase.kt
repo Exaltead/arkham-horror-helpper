@@ -1,7 +1,7 @@
 package fi.exa.cthulhuhelpper.persistence
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 
 @Database(entities = [(TokenConfiguration::class)], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {

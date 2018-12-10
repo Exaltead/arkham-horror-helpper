@@ -1,10 +1,8 @@
 package fi.exa.cthulhuhelpper.repository
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Transformations
-import fi.exa.cthulhuhelpper.model.CthulhuToken
-import fi.exa.cthulhuhelpper.model.TokenConfigurationBuilder
-import fi.exa.cthulhuhelpper.model.TokenConfigurationHolder
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import fi.exa.cthulhuhelpper.model.*
 import fi.exa.cthulhuhelpper.persistence.TokenConfiguration
 import fi.exa.cthulhuhelpper.persistence.TokenConfigurationDao
 import org.jetbrains.anko.doAsync

@@ -1,7 +1,7 @@
 package fi.exa.cthulhuhelpper.persistence
 
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import fi.exa.cthulhuhelpper.model.CthulhuToken
 
 

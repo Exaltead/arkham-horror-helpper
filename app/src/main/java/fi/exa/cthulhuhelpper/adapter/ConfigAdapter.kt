@@ -1,15 +1,14 @@
 package fi.exa.cthulhuhelpper.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
+import androidx.recyclerview.widget.RecyclerView
 import fi.exa.cthulhuhelpper.R
 import fi.exa.cthulhuhelpper.model.CthulhuToken
 import fi.exa.cthulhuhelpper.model.Difficulty
-import fi.exa.cthulhuhelpper.model.TokenConfigurationBuilder
 import kotlinx.android.synthetic.main.crementer.view.*
 import kotlinx.android.synthetic.main.view_configuration_header.view.*
 
@@ -35,14 +34,14 @@ class ConfigAdapter(private val configChanged: (CthulhuToken, Int) -> Unit,
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
-           ItemType -> ItemViewHolder(LayoutInflater.from(parent?.context)
+           ItemType -> ItemViewHolder(LayoutInflater.from(parent.context)
                    .inflate(R.layout.crementer, parent, false))
            HeaderType -> {
-               val viewHolder = HeaderViewHolder(LayoutInflater.from(parent?.context)
+               val viewHolder = HeaderViewHolder(LayoutInflater.from(parent.context)
                    .inflate(R.layout.view_configuration_header, parent, false))
-               headerAdapter = DifficultyAdapter(parent?.context, android.R.layout.simple_spinner_item)
+               headerAdapter = DifficultyAdapter(parent.context, android.R.layout.simple_spinner_item)
                headerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                viewHolder.spinner.adapter = headerAdapter
                return viewHolder
@@ -53,7 +52,7 @@ class ConfigAdapter(private val configChanged: (CthulhuToken, Int) -> Unit,
 
     override fun getItemCount()  = tokens.size + 1
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is ItemViewHolder){
             setHolderValues(holder, position)
         }
