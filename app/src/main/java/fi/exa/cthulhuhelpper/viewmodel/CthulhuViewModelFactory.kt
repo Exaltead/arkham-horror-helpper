@@ -8,12 +8,15 @@ import javax.inject.Singleton
 
 @Singleton
 class CthulhuViewModelFactory @Inject constructor(
-        private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>):
+        private val creators: Map<Class<out ViewModel>,
+        @JvmSuppressWildcards Provider<ViewModel>>):
     ViewModelProvider.Factory{
+
+
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val creator = creators[modelClass] ?:
-        creators.entries.firstOrNull { modelClass.isAssignableFrom(it.key) }?.value
-        ?: throw IllegalArgumentException("Unknown viewmodel type")
+        creators.asIterable().firstOrNull { modelClass.isAssignableFrom(it.key) }?.value
+        ?: throw IllegalArgumentException("Unknown viewmodel type $modelClass")
 
         try {
             @Suppress("UNCHECKED_CAST")

@@ -7,6 +7,7 @@ import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
 import fi.exa.cthulhuhelpper.viewmodel.CthulhuViewModelFactory
+import fi.exa.cthulhuhelpper.viewmodel.PlayerViewModel
 import fi.exa.cthulhuhelpper.viewmodel.TokenViewModel
 import kotlin.reflect.KClass
 
@@ -27,6 +28,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TokenViewModel::class)
     abstract fun bindsTokenViewModel(tokenViewModel: TokenViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PlayerViewModel::class)
+    abstract fun bindsPlayerViewModel(playerViewModel: PlayerViewModel): ViewModel
 
     @Binds
     abstract fun bindsViewModelFactory(cthulhuViewModelFactory: CthulhuViewModelFactory):
