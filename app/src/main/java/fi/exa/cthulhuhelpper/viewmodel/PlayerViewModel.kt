@@ -24,4 +24,23 @@ class PlayerViewModel @Inject constructor(
             }
         }
     }
+
+    fun adjustSanityBy(adjustment: Int){
+        player.value?.let {
+            val sanity = it.sanity + adjustment
+            if(sanity in 1..10){
+                playerRepository.setSanity(it.id, sanity)
+            }
+        }
+    }
+
+    fun adjustResourcesBy(adjustment: Int){
+        player.value?.let {
+            val resources = it.resources + adjustment
+            if(resources in 1..20){
+                playerRepository.setResources(it.id, resources)
+            }
+        }
+    }
+
 }

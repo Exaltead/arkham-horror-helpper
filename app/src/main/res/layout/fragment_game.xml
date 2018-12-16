@@ -64,6 +64,92 @@
                 app:layout_constraintHorizontal_bias="0.783"
                 app:layout_constraintStart_toEndOf="@id/hp_status"
                 app:layout_constraintTop_toTopOf="@id/hp_status" />
+            <Button
+                android:id="@+id/st_decrement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:onClickListener="@{()-> viewmodel.adjustSanityBy(-1)}"
+                android:text="@string/decrement"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hp_decrement"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:id="@+id/st_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="8dp"
+                android:text="Sanity"
+                app:layout_constraintBottom_toBottomOf="@+id/st_decrement"
+                app:layout_constraintStart_toEndOf="@id/st_decrement"
+                app:layout_constraintTop_toTopOf="@id/st_decrement" />
+
+            <TextView
+                android:id="@+id/st_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:text="@{viewmodel.sanity}"
+                app:layout_constraintBottom_toBottomOf="@+id/st_label"
+                app:layout_constraintStart_toEndOf="@+id/st_label"
+                app:layout_constraintTop_toTopOf="@id/st_label" />
+
+            <Button
+                android:id="@+id/st_increment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClickListener="@{() -> viewmodel.adjustSanityBy(1)}"
+                android:text="@string/increment"
+                app:layout_constraintBottom_toBottomOf="@+id/st_status"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.783"
+                app:layout_constraintStart_toEndOf="@id/st_status"
+                app:layout_constraintTop_toTopOf="@id/st_status" />
+
+            <Button
+                android:id="@+id/res_decrement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:onClickListener="@{()-> viewmodel.adjustResourcesBy(-1)}"
+                android:text="@string/decrement"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/st_decrement" />
+
+            <TextView
+                android:id="@+id/res_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="8dp"
+                android:text="Resources"
+                app:layout_constraintBottom_toBottomOf="@+id/res_decrement"
+                app:layout_constraintStart_toEndOf="@id/res_decrement"
+                app:layout_constraintTop_toTopOf="@id/res_decrement" />
+
+            <TextView
+                android:id="@+id/res_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:text="@{viewmodel.resource}"
+                app:layout_constraintBottom_toBottomOf="@+id/res_label"
+                app:layout_constraintStart_toEndOf="@+id/res_label"
+                app:layout_constraintTop_toTopOf="@id/res_label" />
+
+            <Button
+                android:id="@+id/res_increment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClickListener="@{() -> viewmodel.adjustResourcesBy(1)}"
+                android:text="@string/increment"
+                app:layout_constraintBottom_toBottomOf="@+id/res_status"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.783"
+                app:layout_constraintStart_toEndOf="@id/res_status"
+                app:layout_constraintTop_toTopOf="@id/res_status" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

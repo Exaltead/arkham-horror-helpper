@@ -20,5 +20,13 @@ class PlayerRepository @Inject constructor(private val playerDao: PlayerDao) {
         doAsync { playerDao.updateHealth(id, health) }
     }
 
+    fun setSanity(id: Int, sanity: Int) {
+        doAsync { playerDao.updateSanity(id, sanity) }
+    }
+
+    fun setResources(id: Int, resources: Int){
+        doAsync { playerDao.updateResources(id, resources) }
+    }
+
     private fun defaultPlayer(): Player = Player(1, 5, 5, 5)
 }
