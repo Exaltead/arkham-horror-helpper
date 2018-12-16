@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.android.support.AndroidSupportInjection
 import fi.exa.cthulhuhelpper.R
 import fi.exa.cthulhuhelpper.adapter.ConfigAdapter
-import fi.exa.cthulhuhelpper.injection.Injectable
 import fi.exa.cthulhuhelpper.model.Difficulty
 import fi.exa.cthulhuhelpper.model.TokenConfigurationBuilder
 import fi.exa.cthulhuhelpper.model.TokenConfigurationHolder
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_config.view.*
 import javax.inject.Inject
 
 
-class TokenConfigFragment: Fragment(), Injectable {
+class TokenConfigFragment: Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -29,6 +29,11 @@ class TokenConfigFragment: Fragment(), Injectable {
     private lateinit var tokenViewModel: TokenViewModel
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewAdapter: ConfigAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

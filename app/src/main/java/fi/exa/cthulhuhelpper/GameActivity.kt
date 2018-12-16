@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import fi.exa.cthulhuhelpper.fragment.GameActivityFragment
@@ -20,6 +21,7 @@ class GameActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidInjection.inject(this)
         setContentView(R.layout.activity_game)
         setSupportActionBar(toolbar)
         supportFragmentManager
