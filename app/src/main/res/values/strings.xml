@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="token_configuration">Token configuration</string>
     <string name="pick_difficulty">Pick difficulty</string>
+    <string name="decrement">-</string>
+    <string name="increment">+</string>
 </resources>

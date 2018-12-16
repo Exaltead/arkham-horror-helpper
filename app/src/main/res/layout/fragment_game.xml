@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="viewmodel" type="fi.exa.cthulhuhelpper.viewmodel.PlayerViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.GameActivityFragment"
+        tools:showIn="@layout/activity_game">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/player_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/hp_decrement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:onClickListener="@{()-> viewmodel.adjustHealthBy(-1)}"
+                android:text="@string/decrement"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:id="@+id/hp_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="8dp"
+                android:text="Health"
+                app:layout_constraintBottom_toBottomOf="@+id/hp_decrement"
+                app:layout_constraintStart_toEndOf="@id/hp_decrement"
+                app:layout_constraintTop_toTopOf="@id/hp_decrement" />
+
+            <TextView
+                android:id="@+id/hp_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:text="@{viewmodel.health}"
+                app:layout_constraintBottom_toBottomOf="@+id/hp_label"
+                app:layout_constraintStart_toEndOf="@+id/hp_label"
+                app:layout_constraintTop_toTopOf="@id/hp_label" />
+
+            <Button
+                android:id="@+id/hp_increment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClickListener="@{() -> viewmodel.adjustHealthBy(1)}"
+                android:text="@string/increment"
+                app:layout_constraintBottom_toBottomOf="@+id/hp_status"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.783"
+                app:layout_constraintStart_toEndOf="@id/hp_status"
+                app:layout_constraintTop_toTopOf="@id/hp_status" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/token_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="\?"
+            android:textAlignment="center"
+            android:textSize="100sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/player_info" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
